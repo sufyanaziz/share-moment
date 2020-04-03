@@ -1,4 +1,4 @@
-## `Share Moment`
+## `Steps to use this repo`
 
 clone this repo `npm clone https://github.com/sufyanaziz/share-moment.git`
 
@@ -14,6 +14,14 @@ and run this command at root folder
 
 you can run this command for running the server and the client at the same time `npm run dev` 
 
-**you can improve this repo, enjoy coding :)**
+## `Important`
 
-**made by me with love <3**
+dont forget import database for this app into your localhost, you can find in `database` folder
+
+and dont forget to run xampp, because this app using mysql as the database
+
+## `Note`
+
+`you can improve this repo, enjoy coding :)`
+
+`made by me with love <3`
