@@ -128,7 +128,7 @@ const AddPost = props => {
           <div className={classes.image_section}>
             <div className={classes.image_container}>
               {fileImage.prevImg ? (
-                <image
+                <img
                   src={fileImage.prevImg}
                   alt="prev image"
                   className={classes.image}

@@ -235,9 +235,11 @@ exports.deletePostingan = (req, res) => {
         .del();
     })
     .then(rows => {
+      console.log(old_imagePostingan);
+
       if (rows === 1) {
         const __dirname =
-          "C:/Users/Achmad Sufyan Aziz/Documents/Project-React.js/share-moment-app/client/public/image/post_image/";
+          "C:/Users/Achmad Sufyan Aziz/Documents/Project-React.js/share-moment/client/public/image/post_image/";
         fs.unlink(__dirname + old_imagePostingan, function(err) {
           if (err && err.code == "ENOENT") {
             // file doens't exist

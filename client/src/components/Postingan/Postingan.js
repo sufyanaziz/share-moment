@@ -192,9 +192,8 @@ const Postingan = ({ data }) => {
         <CardMedia
           image={`/image/post_image/${url_gambar}`}
           style={{
-            height: 0,
-            paddingTop: "56.25%",
-            objectFit: "cover"
+            height: 500,
+            width: "100%"
           }}
         />
 

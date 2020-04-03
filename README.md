@@ -12,13 +12,17 @@ after that, back to root folder `cd ../`
 
 and run this command at root folder
 
-you can run this command for running the server and the client at the same time `npm run dev` 
+you can run this command for running the server and the client at the same time `npm run dev`
 
 ## `Important`
 
 dont forget import database for this app into your localhost, you can find in `database` folder
 
 and dont forget to run xampp, because this app using mysql as the database
+
+for deleted image in your folder you must see `database/controller/postingan` search for `deletePostingan` and change the `_dirname` with your own path
+
+for replaceImage in your folder you must see `database/controller/user` search for `editProfileUser` and change the `_dirname` with your own path
 
 ## `Note`
 

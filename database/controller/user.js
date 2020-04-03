@@ -319,7 +319,7 @@ exports.editProfileUser = (req, res) => {
         return res.status(200).json("Data berhasil diubah dan image tetap ");
       } else if (old_profileImage !== rows[0].image) {
         const __dirname =
-          "C:/Users/Achmad Sufyan Aziz/Documents/Project-React.js/share-moment-app/client/public/image/profile_image/";
+          "C:/Users/Achmad Sufyan Aziz/Documents/Project-React.js/share-moment/client/public/image/profile_image/";
         fs.unlink(__dirname + old_profileImage, function(err) {
           if (err && err.code == "ENOENT") {
             // file doens't exist
@@ -328,7 +328,7 @@ exports.editProfileUser = (req, res) => {
             // other errors, e.g. maybe we don't have enough permission
             console.error("Error occurred while trying to remove file");
           } else {
-            return res.json("Data is changed and Old image are replaced");
+            return console.log("Data is changed and Old image are replaced");
           }
         });
       }
