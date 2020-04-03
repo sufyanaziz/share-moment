@@ -67,15 +67,17 @@ const ShareMomentProvider = props => {
       });
   };
 
-  const signup = data => {
+  const signup = ({ data, history }) => {
     userDispatch({ type: LOADING_USER });
     axios
       .post("/signup", data)
       .then(res => {
         setAuthorization(res.data.token);
         getUserData();
+        history.push("/");
       })
       .catch(err => {
+        console.log(err.response.data);
         userDispatch({ type: SET_ERROR_USER, payload: err.response.data });
       });
   };

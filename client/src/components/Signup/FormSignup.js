@@ -34,7 +34,7 @@ const useStyle = makeStyles({
 
 const FormSignup = props => {
   const context = useContext(ShareMomentContext);
-  const { signup } = context.user;
+  const { signup, error } = context.user;
 
   const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
@@ -42,7 +42,6 @@ const FormSignup = props => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const [error, setError] = useState({});
   const classes = useStyle();
 
   useEffect(() => {
@@ -73,11 +72,10 @@ const FormSignup = props => {
     const { valid, errors } = signupValidation(data);
 
     if (!valid) {
-      setError(errors);
+      setErrors(errors);
       return false;
     } else {
-      signup(fixDataSignup);
-      props.history.push("/");
+      signup({ data: fixDataSignup, history: props.history });
     }
   };
 

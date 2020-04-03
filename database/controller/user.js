@@ -17,14 +17,6 @@ exports.signup = async (req, res) => {
   let encryptPassword;
   let error = {};
 
-  const { errors, valid } = validateSignupUser({
-    full_name: req.body.full_name,
-    username: req.body.username,
-    email: req.body.email,
-    password: req.body.password
-  });
-  if (!valid) return res.status(400).json(errors);
-
   try {
     encryptPassword = await bcrypt.hash(req.body.password, 12);
   } catch (err) {
@@ -65,27 +57,37 @@ exports.signup = async (req, res) => {
     })
     .then(() => {
       const success = Object.keys(error).length;
-      if (success !== 0) {
+      if (success > 0) {
         return res.status(400).json(error);
       } else {
         return knex("data_user").insert(signupData);
       }
     })
     .then(rows => {
-      return knex("data_user").where("id_user", rows);
+      if (rows > 0) {
+        return knex("data_user").where("id_user", rows);
+      } else {
+        return false;
+      }
     })
     .then(rows => {
-      dataUser = rows[0];
-      if (dataUser) {
-        const token = jwt.sign({ id_user: dataUser.id_user }, "supersecretkey");
-        return res.json({ id_user: dataUser.id_user, token });
+      if (rows.length > 0) {
+        dataUser = rows[0];
+        if (dataUser) {
+          const token = jwt.sign(
+            { id_user: dataUser.id_user },
+            "supersecretkey"
+          );
+          return res.json({ id_user: dataUser.id_user, token });
+        } else {
+          return res.status(400).json("Something went wrong");
+        }
       } else {
-        return res.status(400).json("Something went wrong");
+        return false;
       }
     })
     .catch(err => {
-      console.log(err);
-      return res.status(400).json({ error: err.code });
+      return res.status(400).json(err);
     });
 };
 
