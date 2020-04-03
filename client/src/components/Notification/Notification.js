@@ -15,7 +15,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 
 const Notification = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const context = useContext(ShareMomentContext);
   let notificationIcon;
   dayjs.extend(relativeTime);

@@ -170,6 +170,7 @@ const Search = () => {
                           <div className={classes.imageContainer}>
                             <img
                               className={classes.image}
+                              alt="profile"
                               src={`/image/profile_image/${data.image}`}
                             />
                           </div>

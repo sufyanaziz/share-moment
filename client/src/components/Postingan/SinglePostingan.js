@@ -92,8 +92,6 @@ const SinglePostingan = props => {
   const context = useContext(ShareMomentContext);
   dayjs.extend(relativeTime);
 
-  console.log(context);
-
   const {
     id_postingan,
     id_user,
@@ -119,7 +117,7 @@ const SinglePostingan = props => {
         console.log(err);
       });
     return () => (mounted = false);
-  }, []);
+  }, [id_user, status_postingan]);
 
   return (
     <React.Fragment>

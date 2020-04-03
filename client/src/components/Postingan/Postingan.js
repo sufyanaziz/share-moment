@@ -14,7 +14,6 @@ import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
 
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import dayjs from "dayjs";
@@ -41,7 +40,7 @@ const Postingan = ({ data }) => {
   const context = useContext(ShareMomentContext);
   const [gambarUser, setGambarUser] = useState("");
   const [username, setUsername] = useState("");
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);

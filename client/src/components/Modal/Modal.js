@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { ShareMomentContext } from "../../globalContext/globalstorage";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import SinglePostingan from "../Postingan/SinglePostingan";
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     zIndex: 9999
   },
   single_post: {
-    position: "absolute",
+    position: "fixed",
     top: 0,
     right: 0,
     height: "100%",
