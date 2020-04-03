@@ -110,7 +110,7 @@ const EditProfile = props => {
 
     let imageFromObj = new FormData();
     imageFromObj.append("userImage", fileImage.file);
-    imageFromObj.append("website", website);
+    imageFromObj.append("website", web);
     imageFromObj.append("bio", status);
     imageFromObj.append("location", lokasi);
     imageFromObj.append("full_name", fullName);
