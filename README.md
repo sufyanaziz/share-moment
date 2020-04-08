@@ -26,6 +26,12 @@ for replaceImage in your folder you must see `database/controller/user` search f
 
 ## `Note`
 
+`this repo doesn't have`
+
+`- edit post`
+`- following`
+`- followed`
+
 `you can improve this repo, enjoy coding :)`
 
 `made by me with love <3`
