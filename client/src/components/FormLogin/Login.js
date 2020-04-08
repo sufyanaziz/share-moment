@@ -16,29 +16,33 @@ const useStyle = makeStyles({
     textAlign: "center",
     background: "white",
     boxShadow: "0px 5px 10px rgb(200,200,200)",
-    padding: "0 3rem"
+    padding: "0 3rem",
   },
   header: { fontFamily: "Pacifico, cursive", marginBottom: "6rem" },
   inputLogin: {
-    marginBottom: "1.5rem"
+    marginBottom: "1.5rem",
   },
   signup: {
     textDecoration: "none",
     color: "#0B9ED9",
     "&:hover": {
-      textDecoration: "underline"
-    }
-  }
+      textDecoration: "underline",
+    },
+  },
 });
 
-const FormLogin = props => {
+const FormLogin = (props) => {
   const [input, setInput] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const classes = useStyle();
   const context = useContext(ShareMomentContext);
 
-  const { login, error } = context.user;
+  const { login, error, clearError } = context.user;
+
+  useEffect(() => {
+    clearError();
+  }, []);
 
   useEffect(() => {
     if (!error) {
@@ -48,11 +52,11 @@ const FormLogin = props => {
     }
   }, [error]);
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const userData = {
       input: input,
-      password: password
+      password: password,
     };
     login(userData);
   };
@@ -75,7 +79,7 @@ const FormLogin = props => {
               label="username or email"
               autoComplete="off"
               value={input}
-              onChange={e => setInput(e.target.value)}
+              onChange={(e) => setInput(e.target.value)}
               error={errors.input ? true : false}
               helperText={errors.input}
               fullWidth
@@ -90,7 +94,7 @@ const FormLogin = props => {
               value={password}
               error={errors.password ? true : false}
               helperText={errors.password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               fullWidth
             />
           </div>

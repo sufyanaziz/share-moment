@@ -1,7 +1,7 @@
 import React, { useState, createContext, useReducer } from "react";
 import userReducer, { initialState as initialStateUser } from "./reducers/user";
 import postinganReducer, {
-  initialState as initialStatePostingan
+  initialState as initialStatePostingan,
 } from "./reducers/postingan";
 import dataReducer, { initialState as initialStateData } from "./reducers/data";
 import axios from "../config/axios";
@@ -27,12 +27,13 @@ import {
   SET_UNLIKE_USER,
   UNLIKE_POSTINGAN,
   MARK_NOTIFICATION_READED,
-  DELETE_POSTINGAN
+  DELETE_POSTINGAN,
+  CLEAR_ERROR,
 } from "./types";
 
 const ShareMomentContext = createContext();
 
-const ShareMomentProvider = props => {
+const ShareMomentProvider = (props) => {
   const [openModal, setOpenModal] = useState(false);
   const [pathName, setPathName] = useState("");
   const [userState, userDispatch] = useReducer(userReducer, initialStateUser);
@@ -47,22 +48,22 @@ const ShareMomentProvider = props => {
     userDispatch({ type: LOADING_USER });
     axios
       .get("/user")
-      .then(res => {
+      .then((res) => {
         userDispatch({ type: SET_USER, payload: res.data });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
-  const login = data => {
+  const login = (data) => {
     userDispatch({ type: LOADING_USER });
     axios
       .post("/login", data)
-      .then(res => {
+      .then((res) => {
         setAuthorization(res.data.token);
         getUserData();
       })
-      .catch(err => {
+      .catch((err) => {
         userDispatch({ type: SET_ERROR_USER, payload: err.response.data });
       });
   };
@@ -71,18 +72,18 @@ const ShareMomentProvider = props => {
     userDispatch({ type: LOADING_USER });
     axios
       .post("/signup", data)
-      .then(res => {
+      .then((res) => {
         setAuthorization(res.data.token);
         getUserData();
         history.push("/");
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err.response.data);
         userDispatch({ type: SET_ERROR_USER, payload: err.response.data });
       });
   };
 
-  const logout = history => {
+  const logout = (history) => {
     localStorage.removeItem("idToken");
     delete axios.defaults.headers.common["Authorization"];
     userDispatch({ type: SET_UNAUTHENTICATION });
@@ -95,7 +96,7 @@ const ShareMomentProvider = props => {
       .then(() => {
         userDispatch({ type: MARK_NOTIFICATION_READED });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -108,9 +109,13 @@ const ShareMomentProvider = props => {
         getUserData();
         close();
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
+  };
+
+  const clearError = () => {
+    userDispatch({ type: CLEAR_ERROR });
   };
   // * End Action User --------------------------------------------------------
 
@@ -119,32 +124,32 @@ const ShareMomentProvider = props => {
     postinganDispatch({ type: LOADING_POSTINGAN });
     axios
       .get("/post")
-      .then(res => {
+      .then((res) => {
         postinganDispatch({ type: SET_ALL_POSTINGAN, payload: res.data });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
-  const getSinglePosting = id => {
+  const getSinglePosting = (id) => {
     postinganDispatch({ type: LOADING_POSTINGAN });
     axios
       .post(`/post/${id}`)
-      .then(res => {
+      .then((res) => {
         postinganDispatch({ type: SET_SINGLE_POSTINGAN, payload: res.data });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
-  const getUserPostingan = id_user => {
+  const getUserPostingan = (id_user) => {
     postinganDispatch({ type: LOADING_USER });
     axios
       .get(`/post/${id_user}`)
-      .then(res => {
+      .then((res) => {
         postinganDispatch({ type: SET_USER_POSTINGAN, payload: res.data });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -154,19 +159,19 @@ const ShareMomentProvider = props => {
 
     axios
       .post("/post", data)
-      .then(res => {
+      .then((res) => {
         postinganDispatch({ type: POST_POSTINGAN, payload: res.data });
         dataDispatch({
           type: SET_FLASH,
           payload:
-            "Posting Berhasil Ditambahkan!! (click untuk menghapus pesan ini)"
+            "Posting Berhasil Ditambahkan!! (click untuk menghapus pesan ini)",
         });
         history.push("/");
       })
-      .catch(err => {
+      .catch((err) => {
         postinganDispatch({
           type: SET_ERROR_POSTINGAN,
-          payload: err.response.data
+          payload: err.response.data,
         });
       });
   };
@@ -175,48 +180,48 @@ const ShareMomentProvider = props => {
     const { id_postingan } = data;
     axios
       .post(`/post/${id_postingan}/comment`, data)
-      .then(res => {
+      .then((res) => {
         postinganDispatch({ type: SUBMIT_COMMENT, payload: res.data });
       })
-      .catch(err => {
+      .catch((err) => {
         postinganDispatch({
           type: SET_ERROR_POSTINGAN,
-          payload: err.response.data
+          payload: err.response.data,
         });
       });
   };
 
-  const likesOnPostingan = id_postingan => {
+  const likesOnPostingan = (id_postingan) => {
     axios
       .get(`post/${id_postingan}/like`)
-      .then(res => {
+      .then((res) => {
         postinganDispatch({
           type: LIKE_POSTINGAN,
-          payload: res.data.posting_data
+          payload: res.data.posting_data,
         });
         userDispatch({ type: SET_LIKE_USER, payload: res.data.userLike });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
 
-  const unlikeOnPostingan = id_postingan => {
+  const unlikeOnPostingan = (id_postingan) => {
     axios
       .delete(`post/${id_postingan}/like`)
-      .then(res => {
+      .then((res) => {
         postinganDispatch({
           type: UNLIKE_POSTINGAN,
-          payload: res.data
+          payload: res.data,
         });
         userDispatch({ type: SET_UNLIKE_USER, payload: id_postingan });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
 
-  const deletePostingan = id => {
+  const deletePostingan = (id) => {
     postinganDispatch({ type: LOADING_POSTINGAN });
     axios
       .delete(`/post/${id}`)
@@ -225,10 +230,10 @@ const ShareMomentProvider = props => {
         dataDispatch({
           type: SET_FLASH,
           payload:
-            "Posting Berhasil Dihapus!! (click untuk menghapus pesan ini)"
+            "Posting Berhasil Dihapus!! (click untuk menghapus pesan ini)",
         });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   };
   // * End Action postingan -------------------------------------------------------
 
@@ -237,15 +242,15 @@ const ShareMomentProvider = props => {
     dataDispatch({ type: CLOSE_FLASH });
   };
 
-  const setUserProfile = user => {
+  const setUserProfile = (user) => {
     dataDispatch({ type: LOADING_DATA });
     axios
       .post(`/user/${user}`)
-      .then(res => {
+      .then((res) => {
         getUserPostingan(res.data.id_user);
         dataDispatch({ type: SET_USER_PROFILE, payload: res.data });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -262,7 +267,7 @@ const ShareMomentProvider = props => {
     document.title = `${split[1]} on Posting : ${status}`;
     window.history.pushState(null, null, newPath);
   };
-  const closeModalPost = user => {
+  const closeModalPost = (user) => {
     setOpenModal(false);
     postinganDispatch({ type: RESET_SINGLE_POST });
     setPathName("");
@@ -283,7 +288,8 @@ const ShareMomentProvider = props => {
           logout,
           getUserData,
           readNotification,
-          editProfile
+          editProfile,
+          clearError,
         },
         postingan: {
           ...postinganState,
@@ -294,16 +300,16 @@ const ShareMomentProvider = props => {
           submitComment,
           likesOnPostingan,
           unlikeOnPostingan,
-          deletePostingan
+          deletePostingan,
         },
         ui: {
           openModal,
           setOpenModal,
           openModalPost,
           closeModalPost,
-          pathName
+          pathName,
         },
-        data: { ...dataState, closeFlash, setUserProfile }
+        data: { ...dataState, closeFlash, setUserProfile },
       }}
     >
       {props.children}
@@ -311,7 +317,7 @@ const ShareMomentProvider = props => {
   );
 };
 
-const setAuthorization = token => {
+const setAuthorization = (token) => {
   const IdToken = `Bearer ${token}`;
   localStorage.setItem("idToken", IdToken);
   axios.defaults.headers.common["Authorization"] = IdToken;

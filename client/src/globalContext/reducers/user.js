@@ -7,7 +7,8 @@ import {
   SET_ERROR_USER,
   SET_PROFILE,
   SET_LIKE_USER,
-  SET_UNLIKE_USER
+  SET_UNLIKE_USER,
+  CLEAR_ERROR,
 } from "../types";
 
 export const initialState = {
@@ -17,7 +18,7 @@ export const initialState = {
   likes: [],
   notifications: [],
   profile: {},
-  error: {}
+  error: {},
 };
 
 const userReducer = (state, action) => {
@@ -25,7 +26,7 @@ const userReducer = (state, action) => {
     case SET_AUTHENTICATION:
       return {
         ...state,
-        authenticated: true
+        authenticated: true,
       };
     case SET_UNAUTHENTICATION:
       return initialState;
@@ -35,43 +36,45 @@ const userReducer = (state, action) => {
         authenticated: true,
         loading: false,
         ...action.payload,
-        error: {}
+        error: {},
       };
     case SET_PROFILE:
       return {
         ...state,
         loading: false,
-        profile: action.payload
+        profile: action.payload,
       };
     case LOADING_USER:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case MARK_NOTIFICATION_READED:
-      state.notifications.like.forEach(not => (not.read_notif = true));
-      state.notifications.comment.forEach(not => (not.read_notif = true));
+      state.notifications.like.forEach((not) => (not.read_notif = true));
+      state.notifications.comment.forEach((not) => (not.read_notif = true));
       return {
-        ...state
+        ...state,
       };
     case SET_ERROR_USER:
       return {
         ...state,
         error: { ...action.payload },
-        loading: false
+        loading: false,
       };
+    case CLEAR_ERROR:
+      return initialState;
     case SET_LIKE_USER:
       return {
         ...state,
-        likes: [action.payload, ...state.likes]
+        likes: [action.payload, ...state.likes],
       };
     case SET_UNLIKE_USER:
       let unlike = state.likes.filter(
-        like => like.id_postingan !== action.payload
+        (like) => like.id_postingan !== action.payload
       );
       return {
         ...state,
-        likes: unlike
+        likes: unlike,
       };
     default:
       return state;

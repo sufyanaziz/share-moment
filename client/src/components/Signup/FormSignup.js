@@ -17,24 +17,24 @@ const useStyle = makeStyles({
     background: "white",
     boxShadow: "0px 5px 10px rgb(200,200,200)",
     padding: "0 3rem",
-    overflowY: "auto"
+    overflowY: "auto",
   },
   header: { fontFamily: "Pacifico, cursive", margin: "1rem 0" },
   inputLogin: {
-    marginBottom: "0.8rem"
+    marginBottom: "0.8rem",
   },
   signup: {
     textDecoration: "none",
     color: "#0B9ED9",
     "&:hover": {
-      textDecoration: "underline"
-    }
-  }
+      textDecoration: "underline",
+    },
+  },
 });
 
-const FormSignup = props => {
+const FormSignup = (props) => {
   const context = useContext(ShareMomentContext);
-  const { signup, error } = context.user;
+  const { signup, error, clearError } = context.user;
 
   const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
@@ -45,6 +45,10 @@ const FormSignup = props => {
   const classes = useStyle();
 
   useEffect(() => {
+    clearError();
+  }, []);
+
+  useEffect(() => {
     if (!error) {
       setErrors("");
     } else {
@@ -52,7 +56,7 @@ const FormSignup = props => {
     }
   }, [error]);
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const data = {
@@ -60,13 +64,13 @@ const FormSignup = props => {
       username,
       email,
       password,
-      confirmPassword
+      confirmPassword,
     };
     const fixDataSignup = {
       full_name: fullName,
       username,
       email,
-      password
+      password,
     };
 
     const { valid, errors } = signupValidation(data);
@@ -93,7 +97,7 @@ const FormSignup = props => {
               label="full name"
               autoComplete="off"
               value={fullName}
-              onChange={e => setFullName(e.target.value)}
+              onChange={(e) => setFullName(e.target.value)}
               error={errors.full_name ? true : false}
               helperText={errors.full_name}
               fullWidth
@@ -106,7 +110,7 @@ const FormSignup = props => {
               label="username"
               autoComplete="off"
               value={username}
-              onChange={e => setUsername(e.target.value)}
+              onChange={(e) => setUsername(e.target.value)}
               error={errors.username ? true : false}
               helperText={errors.username}
               fullWidth
@@ -119,7 +123,7 @@ const FormSignup = props => {
               label="email"
               autoComplete="off"
               value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               error={errors.email ? true : false}
               helperText={errors.email}
               fullWidth
@@ -131,9 +135,9 @@ const FormSignup = props => {
               name="password"
               label=" password"
               value={password}
-              error={errors.password ? true : false}
-              helperText={errors.password}
-              onChange={e => setPassword(e.target.value)}
+              error={errors.passwordSignup ? true : false}
+              helperText={errors.passwordSignup}
+              onChange={(e) => setPassword(e.target.value)}
               fullWidth
             />
           </div>
@@ -143,7 +147,7 @@ const FormSignup = props => {
               name="confirmPassword"
               label=" Confirm Password"
               value={confirmPassword}
-              onChange={e => setConfirmPassword(e.target.value)}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               fullWidth
             />
           </div>
@@ -173,18 +177,18 @@ const FormSignup = props => {
   );
 };
 
-const isEmpty = string => {
+const isEmpty = (string) => {
   if (string.trim() === "") return true;
   else return false;
 };
 
-const validateEmail = email => {
+const validateEmail = (email) => {
   const regEx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   if (email.match(regEx)) return true;
   else return false;
 };
 
-const signupValidation = data => {
+const signupValidation = (data) => {
   let errors = {};
 
   const lengthUsername = data.username.split(" ").length;
@@ -193,9 +197,9 @@ const signupValidation = data => {
   if (isEmpty(data.full_name))
     errors.full_name = "Full Name tidak boleh kosong";
   if (isEmpty(data.password)) {
-    errors.password = "Password tidak boleh kosong";
+    errors.passwordSignup = "Password tidak boleh kosong";
   } else if (data.password !== data.confirmPassword) {
-    errors.password = "Password tidak sama, periksa kembali!";
+    errors.passwordSignup = "Password tidak sama, periksa kembali!";
   }
   if (isEmpty(data.email)) {
     errors.email = "Email tidak boleh kosong";
@@ -210,7 +214,7 @@ const signupValidation = data => {
 
   return {
     errors,
-    valid: Object.keys(errors).length === 0 ? true : false
+    valid: Object.keys(errors).length === 0 ? true : false,
   };
 };
 

@@ -6,6 +6,7 @@ export const SET_PROFILE = "SET_PROFILE";
 export const LOADING_USER = "LOADING_USER";
 export const MARK_NOTIFICATION_READED = "MARK_NOTIFICATION_READED";
 export const SET_ERROR_USER = "SET_ERROR_USER";
+export const CLEAR_ERROR = "CLEAR_ERROR";
 export const SET_LIKE_USER = "SET_LIKE_USER";
 export const SET_UNLIKE_USER = "SET_UNLIKE_USER";
 
