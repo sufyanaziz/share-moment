@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 03, 2020 at 05:58 AM
+-- Generation Time: Apr 08, 2020 at 04:13 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -95,13 +95,6 @@ CREATE TABLE `data_like` (
   `created_at` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `data_like`
---
-
-INSERT INTO `data_like` (`id_like`, `id_user`, `id_postingan`, `created_at`) VALUES
-(102, 8, 66, '2020-04-02T15:46:30.082Z');
-
 -- --------------------------------------------------------
 
 --
@@ -116,13 +109,6 @@ CREATE TABLE `data_notifikasi` (
   `read_notif` varchar(16) NOT NULL,
   `created_at` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `data_notifikasi`
---
-
-INSERT INTO `data_notifikasi` (`id`, `config_notifikasi`, `id_notifikasi`, `username`, `read_notif`, `created_at`) VALUES
-(130, 1, 66, 'ahmadsufyan_', 'false', '2020-04-02T15:46:30.123Z');
 
 -- --------------------------------------------------------
 
@@ -140,14 +126,6 @@ CREATE TABLE `data_postingan` (
   `like_count` int(11) NOT NULL,
   `comment_count` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `data_postingan`
---
-
-INSERT INTO `data_postingan` (`id_postingan`, `id_user`, `url_gambar`, `status_postingan`, `location`, `created_at`, `like_count`, `comment_count`) VALUES
-(65, 8, '8-postingan-4-April-2020-road_marking_trees_137674_3840x2400.jpg', 'Your time is limited, so don\'t waste it living someone else\'s life', 'Earth', '2020-04-02T15:33:19.926Z', 0, 0),
-(66, 11, '11-postingan-4-April-2020-2.jpg', '아린 - Oh My Girl :) ~', 'anywhere', '2020-04-02T15:43:03.180Z', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -170,17 +148,6 @@ CREATE TABLE `data_user` (
   `created_at` varchar(50) NOT NULL,
   `updated_at` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `data_user`
---
-
-INSERT INTO `data_user` (`id_user`, `full_name`, `email`, `username`, `password`, `image`, `following`, `followers`, `bio`, `website`, `location`, `created_at`, `updated_at`) VALUES
-(8, 'achmad sufyan', 'sufyan@sharemoment.com', 'ahmadsufyan_', '$2a$12$POhCb7IpcRQWpGdWfqZs.eHk/frfeZIhuFmXz097KhhRVjqC8s5lq', '10-profile-4-March-2020-sufyan_profile.jpg', 0, 0, 'React Developer', 'sharemomentapp.com', 'Jakarta, Indonesia', '2020-03-15T14:00:21.157Z', '2020-04-03T03:30:41.923Z'),
-(10, 'user', 'user@user.com', 'user', '$2a$12$wCYjTtSDmhWMcfOwByhjcebZ6.jTXnopwpMfrZIKlPbzfiUG8yDq.', 'blank_profile.png', 0, 0, 'Javascript.js', 'xxxx.com', 'planet jupiter', '2020-03-15T16:12:30.527Z', '2020-03-19T14:34:37.267Z'),
-(11, 'Arin 아린', 'arin@user.com', 'arin_', '$2a$12$A8I21dItYgF1zqQx8YUOhepXt3uzRekR8qmPZxHZVgw8w4h/73AZO', '11-profile-1-March-2020-24.jpg', 0, 0, 'Lovely Maknae OMG ~', 'ohmygirl.com', 'Seoul, South Korea', '2020-03-28T18:41:12.254Z', '2020-04-02T15:43:46.756Z'),
-(12, 'Yooa', 'yooa@user.com', 'yooa', '$2a$12$KT0oY2fY45Viebpq7/C7GO.KXVgmD6iEmy7eK.Nl5iCWvJWGNyU0m', '12-profile-2-March-2020-yoaaa.jpg', 0, 0, '', '', '', '2020-03-30T17:47:29.277Z', '2020-03-30T17:56:25.102Z'),
-(20, 'zahrie', 'zahrie@user.com', 'zahrieA', '$2a$12$GAzAZtDDsJuQxEqvyI6F1.7TyzsBxv19XAiBGG/mXNWsEKZpht2Cu', 'blank_profile.png', 0, 0, '', '', '', '2020-04-01T16:42:38.746Z', '2020-04-01T16:42:38.746Z');
 
 --
 -- Indexes for dumped tables
@@ -248,7 +215,7 @@ ALTER TABLE `config_notif`
 -- AUTO_INCREMENT for table `data_comment`
 --
 ALTER TABLE `data_comment`
-  MODIFY `id_comment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id_comment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT for table `data_followers`
@@ -266,19 +233,19 @@ ALTER TABLE `data_following`
 -- AUTO_INCREMENT for table `data_like`
 --
 ALTER TABLE `data_like`
-  MODIFY `id_like` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `id_like` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT for table `data_notifikasi`
 --
 ALTER TABLE `data_notifikasi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- AUTO_INCREMENT for table `data_postingan`
 --
 ALTER TABLE `data_postingan`
-  MODIFY `id_postingan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id_postingan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `data_user`
