@@ -1,6 +1,7 @@
 const connection = require("../config/connection");
 const knex = require("knex")(connection);
 const fs = require("fs");
+const path = require("path");
 
 const { validatePost, validateComment } = require("../../util/validation");
 const { insertToNotification, deleteNotification } = require("./notification");
@@ -235,12 +236,12 @@ exports.deletePostingan = (req, res) => {
         .del();
     })
     .then(rows => {
-      console.log(old_imagePostingan);
-
       if (rows === 1) {
-        const __dirname =
-          "C:/Users/Achmad Sufyan Aziz/Documents/Project-React.js/share-moment/client/public/image/post_image/";
-        fs.unlink(__dirname + old_imagePostingan, function(err) {
+         const dirpath = path.join(
+          __dirname,
+          "../../client/public/image/profile_image/"
+        );
+        fs.unlink(dirpath + old_imagePostingan, function(err) {
           if (err && err.code == "ENOENT") {
             // file doens't exist
             console.info("File doesn't exist, won't remove it.");
