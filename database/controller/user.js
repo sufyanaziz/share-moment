@@ -3,6 +3,7 @@ const knex = require("knex")(connection);
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const fs = require("fs");
+const path = require("path");
 
 const {
   validateSignupUser,
@@ -318,9 +319,11 @@ exports.editProfileUser = (req, res) => {
       } else if (old_profileImage === rows[0].image) {
         return res.status(200).json("Data berhasil diubah dan image tetap ");
       } else if (old_profileImage !== rows[0].image) {
-        const __dirname =
-          "C:/Users/Achmad Sufyan Aziz/Documents/Project-React.js/share-moment/client/public/image/profile_image/";
-        fs.unlink(__dirname + old_profileImage, function(err) {
+         const dirpath = path.join(
+          __dirname,
+          "../../client/public/image/profile_image/"
+        );
+        fs.unlink(dirpath + old_profileImage, function(err) {
           if (err && err.code == "ENOENT") {
             // file doens't exist
             console.info("File doesn't exist, won't remove it.");
