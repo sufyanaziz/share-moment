@@ -239,7 +239,7 @@ exports.deletePostingan = (req, res) => {
       if (rows === 1) {
          const dirpath = path.join(
           __dirname,
-          "../../client/public/image/profile_image/"
+          "../../client/public/image/post_image/"
         );
         fs.unlink(dirpath + old_imagePostingan, function(err) {
           if (err && err.code == "ENOENT") {
